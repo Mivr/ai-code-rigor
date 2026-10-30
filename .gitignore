@@ -1,0 +1,11 @@
+# Never commit source documents: the research corpus stays local.
+*.pdf
+*.epub
+*.djvu
+*.mobi
+*.azw3
+/corpus/
+/extracted/
+target/
+buck-out/
+.DS_Store
