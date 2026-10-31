@@ -1,0 +1,28 @@
+[package]
+name = "gpu-exhaustive"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT OR Apache-2.0"
+description = "Pilot: exhaustive 2^32 validation and mutant schemata on GPU via CubeCL"
+
+[features]
+default = ["cpu"]
+# CubeCL CPU runtime (MLIR/LLVM JIT). Pulls a prebuilt LLVM bundle at build time.
+cpu = ["cubecl/cpu"]
+# Use CubeCL's own SPIR-V compiler on Vulkan instead of WGSL (via naga).
+spirv = ["cubecl-wgpu/spirv"]
+
+[dependencies]
+# Exact pins: CubeCL is alpha and its API moves between minor versions.
+cubecl = { version = "=0.11.3", features = ["wgpu"] }
+cubecl-wgpu = { version = "=0.11.3" }
+cubecl-runtime = { version = "=0.11.3" }
+# Correctly rounded reference (CORE-MATH, compiled from C by core-math-sys).
+core-math = "=1.4.0"
+rayon = "=1.11.0"
+half = "=2.7.1"
+
+[profile.release]
+debug = false
+codegen-units = 16

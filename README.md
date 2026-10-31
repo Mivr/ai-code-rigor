@@ -31,6 +31,12 @@ produces evidence, not certificates.
 - [docs/architecture/functional-core.md](docs/architecture/functional-core.md):
   design note on functional spec, fast implementations and GPU-accelerated
   validation.
+- [docs/architecture/event-reactor.md](docs/architecture/event-reactor.md):
+  design note on an events-only architecture (pure reactors, event log plus
+  selectors, adapters with simulated APIs) built for cheap rigor and fast,
+  human-like simulation testing.
+- [docs/research/event-reactor-prior-art.md](docs/research/event-reactor-prior-art.md):
+  the prior art, formal foundations and testing research behind it.
 - [docs/research/deep-analysis.md](docs/research/deep-analysis.md): what the
   literature, the standards and current tooling say, and where they disagree.
 - [docs/research/references.md](docs/research/references.md): every source,
