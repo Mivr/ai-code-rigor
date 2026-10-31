@@ -28,6 +28,9 @@ produces evidence, not certificates.
 
 - [docs/rigor-levels.md](docs/rigor-levels.md): the draft ladder, with the
   gates per level, the CI architecture and the open decisions.
+- [docs/architecture/functional-core.md](docs/architecture/functional-core.md):
+  design note on functional spec, fast implementations and GPU-accelerated
+  validation.
 - [docs/research/deep-analysis.md](docs/research/deep-analysis.md): what the
   literature, the standards and current tooling say, and where they disagree.
 - [docs/research/references.md](docs/research/references.md): every source,
