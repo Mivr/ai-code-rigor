@@ -1,0 +1,9 @@
+# cmd: bin/gpu-exhaustive-wgsl check --backend cpu --kernel expf --mutant 26
+# load before: 23.23 23.97 21.66 8/7159 2789621
+RESULT setup backend="cpu on AMD Ryzen 9 7950X 16-Core Processor" kernel=2 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden lo_p=0x33800000 (5.9604645e-8) hi_p=0x42b17217 (8.872283e1) lo_n=0xb3000001 (-2.9802326e-8) hi_n=0xc2cff1b4 (-1.0397208e2) window_inputs=520184780 chunks=18 table_mb=2304 scan_s=0.596 fill_s=0.140
+RESULT golden_upload_s=4.090
+RESULT jit first_launch_s=0.0359 second_launch_s=0.00005 jit_estimate_s=0.0358
+RESULT check rep=0 mutant=26 secs=5.0957 max_ulp=1 argmax=0x33800000 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=1 argmax_subnormal=0xc2aeac7e nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4260949216, 17240866, 0, 0, 0, 0, 0, 0] hash=a3bc4f8d47190450 n=4294967295
+# exit: 0
+# load after: 22.84 23.84 21.64 5/6988 2796922

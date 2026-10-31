@@ -776,9 +776,69 @@ fn cmd_fp_probe(a: &Args) {
     }
 }
 
+/// Kernel B on hand-picked special inputs, next to the spec.
+fn cmd_specials(a: &Args) {
+    let be = backend(&a.s("backend", "gpu"));
+    let m = a.u("mutant", 0);
+    let label = be_label(&be);
+    let cases: [(&str, u32); 22] = [
+        ("+0", 0x0000_0000),
+        ("-0", 0x8000_0000),
+        ("+inf", 0x7f80_0000),
+        ("-inf", 0xff80_0000),
+        ("qNaN", 0x7fc0_0000),
+        ("sNaN", 0x7f80_0001),
+        ("-qNaN", 0xffc0_0000),
+        ("1", 0x3f80_0000),
+        ("-1", 0xbf80_0000),
+        ("2^-25 (exp rounds to 1)", 0x3300_0000),
+        ("2^-24 (first input with exp > 1)", 0x3380_0000),
+        ("-2^-25 (exp rounds to 1)", 0xb300_0000),
+        ("-2^-25-ulp (first input with exp < 1)", 0xb300_0001),
+        ("largest input with finite exp (88.7228)", 0x42b1_7217),
+        ("first input with exp = +inf", 0x42b1_7218),
+        ("88.3763 (k = 128 path)", 0x42b0_c0a6),
+        ("-87.3365 (exp just above FLT_MIN)", 0xc2ae_ac4f),
+        ("-87.3365-ulp (exp subnormal)", 0xc2ae_ac50),
+        ("-100 (deep subnormal)", 0xc2c8_0000),
+        ("most negative input with exp > 0 (-103.97208)", 0xc2cf_f1b4),
+        ("first negative input with exp = 0", 0xc2cf_f1b5),
+        ("-104", 0xc2d0_0000),
+    ];
+    let warm = warm_out(&be, KIND_EXPF);
+    let _ = warm;
+    for (name, x) in cases {
+        let v = match &be {
+            Be::Rayon => expf_fast(x, m),
+            Be::Spec => expf_spec(x),
+            Be::Cube { client, .. } => {
+                let h = launch_out(client, KIND_EXPF, m, x, 256 * OUT_EPT);
+                u32::from_bytes(&client.read_one_unchecked(h))[0]
+            }
+        };
+        let e = expf_spec(x);
+        let mut s = stats_new();
+        stats_add(&mut s, x, v, e, 0);
+        let verdict = if v == e {
+            "exact".to_string()
+        } else if s[2] > 0 {
+            "NaN-ness differs".to_string()
+        } else if s[4] > 0 {
+            "NaN (payload differs)".to_string()
+        } else {
+            format!("{} ulp", s[0])
+        };
+        println!(
+            "RESULT special backend=\"{label}\" case=\"{name}\" x={x:#010x} out={v:#010x} ({:e}) spec={e:#010x} ({:e}) verdict=\"{verdict}\"",
+            f32::from_bits(v), f32::from_bits(e)
+        );
+    }
+}
+
 fn main() {
     let a = Args::parse();
     match a.cmd.as_str() {
+        "specials" => cmd_specials(&a),
         "fp-probe" => cmd_fp_probe(&a),
         "info" => cmd_info(&a),
         "spec-validate" => cmd_spec_validate(),

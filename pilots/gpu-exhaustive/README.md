@@ -36,13 +36,15 @@ gpu-exhaustive check   --backend gpu --kernel bf16|bf16-native|expf [--mutant M]
 gpu-exhaustive diff    --a gpu --b spec --kernel expf      # move all outputs to the host, compare
 gpu-exhaustive mutants --backend gpu [--stride 256 --seed 7]
 gpu-exhaustive fp-probe --backend gpu                      # folding, FMA contraction, FTZ, rounding
+gpu-exhaustive specials --backend gpu                      # kernel B on special inputs vs the spec
 gpu-exhaustive spec-validate                               # spec vs independent references
 gpu-exhaustive info    --backend gpu
 ```
 
-`check` evaluates and compares on the device and returns one 20-word statistics record per
+`check` evaluates and compares on the device and returns one 21-word statistics record per
 thread (max ULP split by normal and subnormal expected results, NaN mismatches, ULP buckets, an
-order-independent 64-bit output hash). For kernel B the expected values come from a golden
+order-independent 64-bit output hash, and the number of inputs evaluated: a run that did not
+evaluate all of them exits with code 3 instead of reporting). For kernel B the expected values come from a golden
 table: the windows of non-trivial results are derived from the spec itself (outside them the
 spec is exactly 1, +inf or +0), the table covers the 2^25-input chunks that intersect them
 (2.3 GB) and is uploaded once. `diff` instead reads every output back and compares on the host.
@@ -62,6 +64,9 @@ feature downloads a prebuilt LLVM bundle at build time. Without Docker:
 `cargo build --release --locked [--features spirv]` (Rust 1.95 or newer, a C compiler for
 CORE-MATH). On macOS: `cargo build --release --locked --no-default-features` (wgpu/Metal only,
 about 1.7 GB of build output).
+
+CubeCL keeps a small cache database under `./target/environment/` in the working directory;
+run the binary from a scratch directory.
 
 Versions are pinned in `Cargo.toml` and `Cargo.lock`: CubeCL 0.11.3, wgpu 30.0.1, naga 30.0.1,
 core-math 1.4.0. Autotune is not involved: none of these kernels uses CubeCL's tunable kernels,

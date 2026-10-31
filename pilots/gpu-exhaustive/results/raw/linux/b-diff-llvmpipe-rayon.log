@@ -1,0 +1,8 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a llvmpipe --b rayon --kernel expf
+# load before: 17.70 22.59 21.33 3/7819 2812574
+RESULT diff_setup a="wgpu<wgsl> on llvmpipe (LLVM 21.1.8, 256 bits)" b="rayon (32 threads)" kernel=expf mutant=0
+RESULT jit side=a first_launch_s=0.0072 second_launch_s=0.00018 jit_estimate_s=0.0071
+RESULT diff_stats max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=e3d54898337e0d71 n=4278190082
+RESULT diff_summary differing_outputs=0 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 0, 0, 0, 0] a_s=13.684 b_s=3.035 compare_s=1.683 total_s=20.683
+# exit: 0
+# load after: 14.28 21.42 20.98 8/7616 2822089

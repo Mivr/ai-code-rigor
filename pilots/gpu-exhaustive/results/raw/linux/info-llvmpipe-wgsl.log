@@ -1,0 +1,7 @@
+# cmd: bin/gpu-exhaustive-wgsl info --backend llvmpipe
+# load before: 12.22 26.38 21.69 3/7286 2695564
+RESULT info backend="wgpu<wgsl> on llvmpipe (LLVM 21.1.8, 256 bits)"
+RESULT info_props memory=MemoryDeviceProperties { max_page_size: 134217728, alignment: 32, max_memory: None } hardware=HardwareProperties { load_width: 128, vector_register_count: None, plane_size_min: 8, plane_size_max: 8, max_bindings: 47, max_shared_memory_size: 32768, max_cube_count: (65535, 65535, 65535), max_units_per_cube: 1024, max_cube_dim: (1024, 1024, 1024), num_streaming_multiprocessors: None, num_cpu_cores: None, last_level_cache_size: None, num_tensor_cores: None, min_tensor_cores_dim: None, max_vector_size: 4, cube_mma_reserved_shared_memory: 0 }
+RESULT info_bf16_uses EnumSet()
+# exit: 0
+# load after: 12.22 26.38 21.69 1/7279 2695637

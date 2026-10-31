@@ -1,0 +1,9 @@
+# cmd: bin/gpu-exhaustive-wgsl check --backend llvmpipe --kernel expf --mutant 26
+# load before: 23.31 24.03 21.65 3/7133 2784162
+RESULT setup backend="wgpu<wgsl> on llvmpipe (LLVM 21.1.8, 256 bits)" kernel=2 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden lo_p=0x33800000 (5.9604645e-8) hi_p=0x42b17217 (8.872283e1) lo_n=0xb3000001 (-2.9802326e-8) hi_n=0xc2cff1b4 (-1.0397208e2) window_inputs=520184780 chunks=18 table_mb=2304 scan_s=0.607 fill_s=0.138
+RESULT golden_upload_s=5.367
+RESULT jit first_launch_s=0.0113 second_launch_s=0.00016 jit_estimate_s=0.0112
+RESULT check rep=0 mutant=26 secs=1.6068 max_ulp=8388608 argmax=0xbf317217 max_ulp_normal=8388608 argmax_normal=0xbf317217 max_ulp_subnormal=4194265 argmax_subnormal=0xc2b00f33 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[3758168368, 25298941, 12651984, 8433750, 36900713, 68465144, 136027096, 232244086] hash=f94a0243a02b729c n=4294967295
+# exit: 0
+# load after: 23.23 23.97 21.66 4/7159 2789618

@@ -1,0 +1,10 @@
+# cmd: gpu-exhaustive check --backend rayon --kernel bf16 --repeat 3
+RESULT setup backend="rayon (8 threads)" kernel=0 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT check_minimal rep=0 mismatches=0 secs=1.0265
+RESULT check_minimal rep=1 mismatches=0 secs=1.0251
+RESULT check_minimal rep=2 mismatches=0 secs=1.0279
+RESULT check rep=0 mutant=0 secs=3.7684 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT spec_hash hash=95794923f73805f6 secs=0.621
+RESULT check rep=1 mutant=0 secs=3.7412 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT check rep=2 mutant=0 secs=3.7830 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+# exit: 0

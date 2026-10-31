@@ -1,0 +1,5 @@
+# cmd: gpu-exhaustive info --backend default
+RESULT info backend="wgpu<wgsl> on Apple M2"
+RESULT info_props memory=MemoryDeviceProperties { max_page_size: 4294967292, alignment: 256, max_memory: None } hardware=HardwareProperties { load_width: 128, vector_register_count: None, plane_size_min: 32, plane_size_max: 32, max_bindings: 28, max_shared_memory_size: 32768, max_cube_count: (65535, 65535, 65535), max_units_per_cube: 1024, max_cube_dim: (1024, 1024, 1024), num_streaming_multiprocessors: None, num_cpu_cores: None, last_level_cache_size: None, num_tensor_cores: None, min_tensor_cores_dim: None, max_vector_size: 4, cube_mma_reserved_shared_memory: 0 }
+RESULT info_bf16_uses EnumSet()
+# exit: 0

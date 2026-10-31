@@ -1,0 +1,8 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a gpu --b spec --kernel bf16
+# load before: 22.32 27.27 22.25 5/7079 2720311
+RESULT diff_setup a="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" b="spec (host)" kernel=bf16 mutant=0
+RESULT jit side=a first_launch_s=0.0058 second_launch_s=0.00083 jit_estimate_s=0.0050
+RESULT diff_stats max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT diff_summary differing_outputs=0 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 0, 0, 0, 0] a_s=13.281 b_s=0.821 compare_s=1.601 total_s=17.903
+# exit: 0
+# load after: 20.83 26.74 22.16 1/7054 2729336

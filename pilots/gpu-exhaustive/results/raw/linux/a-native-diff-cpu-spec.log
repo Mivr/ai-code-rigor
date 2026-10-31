@@ -1,0 +1,20 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a cpu --b spec --kernel bf16-native
+# load before: 13.39 24.37 21.52 2/7063 2743397
+RESULT diff_setup a="cpu on AMD Ryzen 9 7950X 16-Core Processor" b="spec (host)" kernel=bf16-native mutant=0
+RESULT jit side=a first_launch_s=0.0225 second_launch_s=0.00005 jit_estimate_s=0.0224
+RESULT diff_stats max_ulp=128 argmax=0x007f8000 max_ulp_normal=128 argmax_normal=0x007f8000 max_ulp_subnormal=127 argmax_subnormal=0x007e8001 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4261478404, 131070, 131074, 131070, 1572864, 14745600, 0, 0] hash=bbd266d18cedeaa9 n=4278190082
+RESULT diff_summary differing_outputs=16711678 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 16646142, 65536, 0, 0] a_s=7.058 b_s=0.813 compare_s=1.565 total_s=11.603
+RESULT diff_example x=0x00008001 (4.5919e-41) a=0x00000000 b=0x00000001
+RESULT diff_example x=0x00008002 (4.592e-41) a=0x00000000 b=0x00000001
+RESULT diff_example x=0x00010000 (9.1835e-41) a=0x00000000 b=0x00000001
+RESULT diff_example x=0x00010001 (9.1837e-41) a=0x00000000 b=0x00000001
+RESULT diff_example x=0x00020000 (1.83671e-40) a=0x00000000 b=0x00000002
+RESULT diff_example x=0x00020001 (1.83672e-40) a=0x00000000 b=0x00000002
+RESULT diff_example x=0x00030000 (2.75506e-40) a=0x00000000 b=0x00000003
+RESULT diff_example x=0x00030001 (2.75508e-40) a=0x00000000 b=0x00000003
+RESULT diff_example x=0x00040000 (3.67342e-40) a=0x00000000 b=0x00000004
+RESULT diff_example x=0x00040001 (3.67343e-40) a=0x00000000 b=0x00000004
+RESULT diff_example x=0x00050000 (4.59177e-40) a=0x00000000 b=0x00000005
+RESULT diff_example x=0x00050001 (4.59179e-40) a=0x00000000 b=0x00000005
+# exit: 0
+# load after: 10.79 23.26 21.20 1/7063 2746815

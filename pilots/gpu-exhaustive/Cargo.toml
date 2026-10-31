@@ -2,6 +2,7 @@
 name = "gpu-exhaustive"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.95"
 publish = false
 license = "MIT OR Apache-2.0"
 description = "Pilot: exhaustive 2^32 validation and mutant schemata on GPU via CubeCL"

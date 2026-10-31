@@ -1,0 +1,11 @@
+# cmd: bin/gpu-exhaustive-wgsl check --backend gpu --kernel expf --repeat 3
+# load before: 16.60 23.92 21.45 8/7098 2753960
+RESULT setup backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" kernel=2 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden lo_p=0x33800000 (5.9604645e-8) hi_p=0x42b17217 (8.872283e1) lo_n=0xb3000001 (-2.9802326e-8) hi_n=0xc2cff1b4 (-1.0397208e2) window_inputs=520184780 chunks=18 table_mb=2304 scan_s=0.644 fill_s=0.145
+RESULT golden_upload_s=3.494
+RESULT jit first_launch_s=0.0145 second_launch_s=0.00051 jit_estimate_s=0.0140
+RESULT check rep=0 mutant=0 secs=0.4493 max_ulp=8388582 argmax=0xc2aeac50 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=8388582 argmax_subnormal=0xc2aeac50 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4258813934, 17339693, 66955, 44102, 195045, 367314, 727073, 635966] hash=02f592ab97a45af1 n=4294967295
+RESULT check rep=1 mutant=0 secs=0.4644 max_ulp=8388582 argmax=0xc2aeac50 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=8388582 argmax_subnormal=0xc2aeac50 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4258813934, 17339693, 66955, 44102, 195045, 367314, 727073, 635966] hash=02f592ab97a45af1 n=4294967295
+RESULT check rep=2 mutant=0 secs=0.4613 max_ulp=8388582 argmax=0xc2aeac50 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=8388582 argmax_subnormal=0xc2aeac50 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4258813934, 17339693, 66955, 44102, 195045, 367314, 727073, 635966] hash=02f592ab97a45af1 n=4294967295
+# exit: 0
+# load after: 15.43 23.56 21.34 1/7169 2756896

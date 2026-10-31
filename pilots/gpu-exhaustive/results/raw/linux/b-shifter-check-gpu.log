@@ -1,0 +1,9 @@
+# cmd: bin/gpu-exhaustive-wgsl check --backend gpu --kernel expf --mutant 26
+# load before: 25.08 24.39 21.76 3/7149 2780963
+RESULT setup backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" kernel=2 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden lo_p=0x33800000 (5.9604645e-8) hi_p=0x42b17217 (8.872283e1) lo_n=0xb3000001 (-2.9802326e-8) hi_n=0xc2cff1b4 (-1.0397208e2) window_inputs=520184780 chunks=18 table_mb=2304 scan_s=0.580 fill_s=0.127
+RESULT golden_upload_s=3.483
+RESULT jit first_launch_s=0.0115 second_launch_s=0.00064 jit_estimate_s=0.0108
+RESULT check rep=0 mutant=26 secs=0.4440 max_ulp=8388608 argmax=0xbf317217 max_ulp_normal=8388608 argmax_normal=0xbf317217 max_ulp_subnormal=8388582 argmax_subnormal=0xc2aeac50 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[3758005552, 25309827, 12649871, 8432720, 36895334, 68462978, 136028226, 232405574] hash=f3f52c1b312d69b6 n=4294967295
+# exit: 0
+# load after: 23.31 24.03 21.65 3/7134 2784157

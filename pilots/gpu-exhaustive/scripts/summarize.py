@@ -142,6 +142,22 @@ def main():
     print('|' + '---|' * (len(cols) + 1))
     for c in cases:
         print(f'| {c} | ' + ' | '.join(cell.get((c, b), '') for b in cols) + ' |')
+    print('\n## Kernel B special values (verdict vs CORE-MATH)\n')
+    cases, cols, cell = [], [], {}
+    for n, lines in logs.items():
+        if not n.startswith('specials'):
+            continue
+        for r in results(lines, 'special'):
+            key = f"{r['case']} `{r['x']}`"
+            if key not in cases:
+                cases.append(key)
+            if r['backend'] not in cols:
+                cols.append(r['backend'])
+            cell[(key, r['backend'])] = r['verdict'] + ('' if r['verdict'] == 'exact' else f" (got {r['out']}, spec {r['spec']})")
+    print('| input | ' + ' | '.join(cols) + ' |')
+    print('|' + '---|' * (len(cols) + 1))
+    for c in cases:
+        print(f'| {c} | ' + ' | '.join(cell.get((c, b), '') for b in cols) + ' |')
     print('\n## spec validation\n')
     for n, lines in logs.items():
         if n.startswith('spec-validate'):

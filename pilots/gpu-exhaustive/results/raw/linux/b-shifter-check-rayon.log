@@ -1,0 +1,7 @@
+# cmd: bin/gpu-exhaustive-wgsl check --backend rayon --kernel expf --mutant 26
+# load before: 24.21 24.21 21.68 7/7221 2779358
+RESULT setup backend="rayon (32 threads)" kernel=2 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden lo_p=0x33800000 (5.9604645e-8) hi_p=0x42b17217 (8.872283e1) lo_n=0xb3000001 (-2.9802326e-8) hi_n=0xc2cff1b4 (-1.0397208e2) window_inputs=520184780 chunks=18 table_mb=2304 scan_s=0.654 fill_s=0.144
+RESULT check rep=0 mutant=26 secs=3.5481 max_ulp=1 argmax=0x33800000 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=1 argmax_subnormal=0xc2aeac7e nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=16777213 first_payload_diff=0x7f800001 buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4260097634, 18092448, 0, 0, 0, 0, 0, 0] hash=e3d54898337e0d71 n=4294967295
+# exit: 0
+# load after: 25.08 24.39 21.76 3/7149 2780960

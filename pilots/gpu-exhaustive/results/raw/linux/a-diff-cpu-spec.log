@@ -1,0 +1,8 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a cpu --b spec --kernel bf16
+# load before: 15.55 25.15 21.74 2/7061 2737219
+RESULT diff_setup a="cpu on AMD Ryzen 9 7950X 16-Core Processor" b="spec (host)" kernel=bf16 mutant=0
+RESULT jit side=a first_launch_s=0.0274 second_launch_s=0.00003 jit_estimate_s=0.0274
+RESULT diff_stats max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT diff_summary differing_outputs=0 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 0, 0, 0, 0] a_s=7.102 b_s=0.819 compare_s=1.588 total_s=11.702
+# exit: 0
+# load after: 13.39 24.37 21.52 2/7063 2743394

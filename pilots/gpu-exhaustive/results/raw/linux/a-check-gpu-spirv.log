@@ -1,0 +1,11 @@
+# cmd: bin/gpu-exhaustive-spirv check --backend gpu --kernel bf16 --repeat 3
+# load before: 18.04 26.97 21.95 8/7093 2699518
+RESULT setup backend="wgpu<spirv> on AMD Radeon RX 6700 XT (RADV NAVI22)" kernel=0 inputs=4294967296 ept=1024 stride=1 seed=1 threads_per_launch=32768 launches=128
+RESULT golden_upload_s=0.000
+RESULT jit first_launch_s=0.0153 second_launch_s=0.00083 jit_estimate_s=0.0144
+RESULT check rep=0 mutant=0 secs=0.1115 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT spec_hash hash=95794923f73805f6 secs=0.347
+RESULT check rep=1 mutant=0 secs=0.1098 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT check rep=2 mutant=0 secs=0.1123 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+# exit: 0
+# load after: 18.04 26.97 21.95 3/7148 2700270

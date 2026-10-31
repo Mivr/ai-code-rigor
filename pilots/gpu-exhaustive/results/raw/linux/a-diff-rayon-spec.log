@@ -1,0 +1,7 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a rayon --b spec --kernel bf16
+# load before: 24.00 27.68 22.36 4/7244 2716145
+RESULT diff_setup a="rayon (32 threads)" b="spec (host)" kernel=bf16 mutant=0
+RESULT diff_stats max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=95794923f73805f6 n=4278190082
+RESULT diff_summary differing_outputs=0 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 0, 0, 0, 0] a_s=0.835 b_s=0.905 compare_s=1.629 total_s=5.816
+# exit: 0
+# load after: 22.32 27.27 22.25 2/7079 2720308

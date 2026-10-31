@@ -1,0 +1,12 @@
+# cmd: bin/gpu-exhaustive-wgsl fp-probe --backend gpu
+# load before: 12.22 26.38 21.69 2/7279 2695646
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="(x+c)-c with runtime c [IEEE: 0]" got=3e-1 (0x3e99999a) ieee=0e0 DIFFERS
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="(x+C)-C with literal C [IEEE: 0]" got=3e-1 (0x3e99999a) ieee=0e0 DIFFERS
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="a*a - fl(a*a) [IEEE: 0; FMA-contracted: 2^-24]" got=5.9604645e-8 (0x33800000) ieee=0e0 DIFFERS
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="2^-100 * 2^-30 [IEEE: 2^-130 subnormal; FTZ: 0]" got=0e0 (0x00000000) ieee=7.34684e-40 DIFFERS
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="2^-100 * 1 [IEEE: 2^-100]" got=7.888609e-31 (0x0d800000) ieee=7.888609e-31 OK
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="round(2.5) [ties-to-even: 2]" got=2e0 (0x40000000) ieee=2e0 OK
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="round(-0.5) [ties-to-even: -0]" got=-0e0 (0x80000000) ieee=-0e0 OK
+RESULT fp_probe backend="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" case="f32(i32(-1.75)) [trunc: -1]" got=-1e0 (0xbf800000) ieee=-1e0 OK
+# exit: 0
+# load after: 12.22 26.38 21.69 7/7284 2695659

@@ -1,0 +1,9 @@
+# cmd: bin/gpu-exhaustive-wgsl spec-validate
+# load before: 12.22 26.38 21.69 3/7275 2696070
+RESULT spec_validate_bf16 spec_vs_semantic_oracle_mismatches=0 secs=0.494
+RESULT spec_validate_expf ref=f64_exp_rounded vs=core_math secs=2.618 max_ulp=0 argmax=- max_ulp_normal=0 argmax_normal=- max_ulp_subnormal=0 argmax_subnormal=- nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278190082, 0, 0, 0, 0, 0, 0, 0] hash=ee71bf0b3ddbc48f n=4278190082
+RESULT spec_validate_expf_examples ref=f64_exp_rounded 
+RESULT spec_validate_expf ref=system_libm_expf vs=core_math secs=2.366 max_ulp=1 argmax=0x37ff7f01 max_ulp_normal=1 argmax_normal=0x37ff7f01 max_ulp_subnormal=1 argmax_subnormal=0xc2aeb433 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4278019434, 170648, 0, 0, 0, 0, 0, 0] hash=44b9a1eb0b2cf49e n=4278190082
+RESULT spec_validate_expf_examples ref=system_libm_expf 0x37ff7f01,0x38ad9e29,0x38e69cc1,0x38efdc7d,0x38fddc11,0x39312c2b,0x39438b55,0x394b2af6,0x395baa1c,0x3965e98c,0x3967297a,0x39776887
+# exit: 0
+# load after: 14.05 26.53 21.76 2/7202 2697068

@@ -1,0 +1,20 @@
+# cmd: bin/gpu-exhaustive-wgsl diff --a gpu --b spec --kernel expf
+# load before: 25.43 24.36 21.83 1/7223 2799935
+RESULT diff_setup a="wgpu<wgsl> on AMD Radeon RX 6700 XT (RADV NAVI22)" b="spec (host)" kernel=expf mutant=0
+RESULT jit side=a first_launch_s=0.0078 second_launch_s=0.00094 jit_estimate_s=0.0069
+RESULT diff_stats max_ulp=8388582 argmax=0xc2aeac50 max_ulp_normal=1 argmax_normal=0x33800000 max_ulp_subnormal=8388582 argmax_subnormal=0xc2aeac50 nan_mismatch=0 first_nan_mismatch=- nan_payload_diff=0 first_payload_diff=- buckets[0,1,2,3,4-15,16-255,256-65535,>=65536]=[4258813934, 17339693, 66955, 44102, 195045, 367314, 727073, 635966] hash=02f592ab97a45af1 n=4278190082
+RESULT diff_summary differing_outputs=19376148 by_class_of_b[zero,subnormal,normal,inf,nan]=[0, 2180453, 17195695, 0, 0] a_s=13.390 b_s=1.004 compare_s=1.633 total_s=18.231
+RESULT diff_example x=0x33800000 (5.9604645e-8) a=0x3f800000 b=0x3f800001
+RESULT diff_example x=0x352ffffc (6.5565087e-7) a=0x3f800006 b=0x3f800005
+RESULT diff_example x=0x354ffffb (7.748601e-7) a=0x3f800006 b=0x3f800007
+RESULT diff_example x=0x3597fffa (1.1324876e-6) a=0x3f80000a b=0x3f800009
+RESULT diff_example x=0x35e7fff3 (1.7285332e-6) a=0x3f80000e b=0x3f80000f
+RESULT diff_example x=0x360bfff6 (2.0861603e-6) a=0x3f800012 b=0x3f800011
+RESULT diff_example x=0x361bfff4 (2.3245784e-6) a=0x3f800014 b=0x3f800013
+RESULT diff_example x=0x3623fff3 (2.4437875e-6) a=0x3f800014 b=0x3f800015
+RESULT diff_example x=0x365bffe8 (3.27825e-6) a=0x3f80001c b=0x3f80001b
+RESULT diff_example x=0x3663ffe7 (3.397459e-6) a=0x3f80001c b=0x3f80001d
+RESULT diff_example x=0x3673ffe3 (3.6358767e-6) a=0x3f80001e b=0x3f80001f
+RESULT diff_example x=0x3685ffee (3.993503e-6) a=0x3f800022 b=0x3f800021
+# exit: 0
+# load after: 23.36 23.91 21.72 6/7426 2805344

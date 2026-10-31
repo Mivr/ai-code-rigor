@@ -76,6 +76,48 @@ Countermeasure: **diversity of compiler paths, not trust in one compiler**.
 - Nightly, run the exhaustive domains on two paths.
 - GPU results must be bit-reproducible (fixed reduction order) to be gateable.
 
+## Pilot results (2026-10-31)
+
+The pilot ([results](../../pilots/gpu-exhaustive/results/RESULTS.md)) ran two kernels on all 2³² f32 inputs:
+
+- an exact f32→bf16 conversion;
+- a fast `expf`, checked against CORE-MATH, which is correctly rounded.
+
+Each kernel ran on an AMD RX 6700 XT (Vulkan), llvmpipe, CubeCL's CPU backend, 32-thread rayon and an Apple M2
+(Metal). The pilot also checked 32 `expf` mutants.
+
+- **Speed.** A full 2³² check takes 0.11 s (bf16) and 0.45 s (`expf`) on the discrete GPU. All 32 mutants, each
+  checked exhaustively, take 14.3 s, against 122 s on 32 CPU threads. The GPU is 2.5–14× faster than the CPU,
+  depending on how lean the CPU loop is. **The comparison must stay on the device**: reading 16 GiB of outputs
+  back makes the GPU about 3× slower than the CPU. One-time setup, such as uploading a 2.3 GB golden table, means
+  the GPU only pays off across repeated checks. A 2²⁴ sample gave the same mutant verdicts as exhaustive checking.
+- **The GPU does not run the same program as the CPU.** The drivers change floating-point semantics:
+  - every Vulkan and Metal path folded `(a+b)-b` into `a`;
+  - the AMD GPU and Metal fused multiply-adds and flushed subnormals to zero;
+  - Metal turned an overflow-safe scaling into `x*inf`.
+
+  The shader code CubeCL emitted was correct, so the rewrites happen in the driver. An `expf` that is within
+  1 ULP on the CPU was off by 2²³ ULP on the GPUs, and three mutants got different verdicts on different backends.
+- **Exact integer kernels behave identically everywhere.** The bf16 conversion had zero mismatches and an
+  identical output hash on every path.
+- **The checker itself can pass silently.** When a kernel failed to compile, CubeCL panicked on a background
+  thread and the read returned zero-filled buffers, which a naive comparison reports as "0 mismatches". The
+  harness now counts the inputs it actually evaluated and fails if the count is short. This is a concrete case
+  of principle P4 in the [rigor-levels spec](../rigor-levels.md): checkers need seeded-fault validation.
+- **The pilot found two bugs in CubeCL.** The CPU backend's f32→bf16 cast is wrong for subnormal inputs
+  (16.7M wrong outputs), and the SPIR-V compiler rejects `bool != bool`.
+
+Consequences for the ladder:
+
+1. **Cross-backend validation is valid for exact (integer or bit-level) kernels.** Disagreement between
+   backends is then a real bug.
+2. **Floating-point kernels must be validated on every backend they ship on**, each with its own oracle and
+   tolerance. A GPU pass is not evidence about the CPU build, and the reverse also holds. Where the semantics
+   must match, prefer integer or fixed-point formulations, or kernels written to be robust to FMA contraction,
+   flush-to-zero and reassociation.
+3. **Every exhaustive or sampled check reports how many inputs it evaluated**, and gates fail on a short
+   count.
+
 ## CubeCL as the kernel layer
 
 [CubeCL](https://github.com/tracel-ai/cubecl) compiles Rust `#[cube]` functions to wgpu (Vulkan, Metal, WebGPU),
